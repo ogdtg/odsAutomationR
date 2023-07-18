@@ -4,10 +4,10 @@
 \alias{get_catalog}
 \title{Get detailed Meta Data}
 \usage{
-get_catalog()
+get_catalog(dataset_uid = NULL)
 }
 \arguments{
-\item{key}{API key from OpenDataSoft}
+\item{dataset_uid}{dataset_uid}
 }
 \value{
 dataframe containing the meta data.

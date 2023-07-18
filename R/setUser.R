@@ -107,7 +107,7 @@ getPath<- function() {
 
 #' setApiType
 #'
-#' @param api_type automation/v1.0 oder management/v2
+#' @param api_type automation/v1.0
 #'
 #' @export
 #'
@@ -134,6 +134,7 @@ getApiType <- function() {
 #' @param apikey API-Key mit den benötigten Berechtigungen (default=NULL)
 #' @param domain Domain des Portals (z.B. data.tg.ch)
 #' @param path Pfad wo der Metadata Katalog auf lokal gespeichert werden soll
+#' @param api_type automation/v1.0
 #'
 #' @export
 #'

@@ -2,12 +2,12 @@
 #'
 #' @param filepath path to csv file
 #' @param dataset_uid dataset_uid
-#' @param encoding encdoing of the csv file
+#' @param resource_uid resource_uid
 #'
 #' @return resource_uid
 #' @export
 #'
-update_dataset_resource <- function(filepath,dataset_uid,resource_uid,encoding){
+update_dataset_resource <- function(filepath,dataset_uid,resource_uid){
 
   tryCatch({
     key = getKey()
@@ -31,9 +31,6 @@ update_dataset_resource <- function(filepath,dataset_uid,resource_uid,encoding){
 
   body <- list(type = "csvfile",
                title = result$filename,
-               params = list(doublequote = T,
-                             encoding = encoding,
-                             separator = ","),
                datasource = list(type = "uploaded_file",
                                  file = list(uid = result$uid))) %>%
     jsonlite::toJSON(auto_unbox = T)

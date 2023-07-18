@@ -22,24 +22,26 @@ update_metadata_and_fields <- function(dataset_uid,filepath){
   metadata_cat <- get_catalog()
 
   # Metadata of the dataset to compare and retrieve dataset_id
-  single_meta <- get_dataset_info(dataset_uid = dataset_uid)
+  single_meta <- get_catalog(dataset_uid = dataset_uid)
 
 
   metadata_test <- readxl::read_excel(filepath,sheet="Metadaten") #read schema
 
   ## METADATA
   # Retrieve themes
-  theme_names <- metadata_test$Eintrag[which(stringr::str_detect(metadata_test$Metadata,"Thema \\d"))]
+  theme_names <-metadata_test$Eintrag[grep(metadata_test$Metadata, "Thema \\d")]
   theme_names <- theme_names[!is.na(theme_names)]
   theme_ids <- themes$theme_id[which(themes$theme == theme_names)]
 
   # Retrieve Keywords
-  keywords <- metadata_test$Eintrag[which(metadata_test$Metadata == "Schluesselwoerter")]
-  keywords <- stringr::str_split(keywords,",")
+  keywords <-
+    metadata_test$Eintrag[which(metadata_test$Metadata == "Schluesselwoerter")]
+  keywords <- strsplit(keywords, ",")
 
   # Retrieve Attributions
-  attributions <- metadata_test$Eintrag[which(metadata_test$Metadata =="Zuschreibungen")]
-  attributions <- stringr::str_split(attributions,",")
+  attributions <-
+    metadata_test$Eintrag[which(metadata_test$Metadata == "Zuschreibungen")]
+  attributions <- strsplit(attributions, ",")
 
   # Dataset ID
   template_json$dataset_id <- single_meta$dataset_id
@@ -47,10 +49,10 @@ update_metadata_and_fields <- function(dataset_uid,filepath){
   # Title
   template_json$metadata$default$title$value <- metadata_test$Eintrag[which(metadata_test$Metadata=="Titel")]
 
-  if (template_json$metadata$default$title$value %in% metadata_cat$fields.title){
-    index <- which(metadata_cat$fields.title==template_json$metadata$default$title$value)
+  if (template_json$metadata$default$title$value %in% metadata_cat$title){
+    index <- which(metadata_cat$title==template_json$metadata$default$title$value)
 
-    if (dataset_id != metadata_cat$fields.dataset_id ){
+    if (dataset_uid != metadata_cat$dataset_uid[index] ){
       stop("Title already taken")
     }
   }
@@ -67,10 +69,15 @@ update_metadata_and_fields <- function(dataset_uid,filepath){
   template_json$metadata$default$keyword$value <- keywords[[1]]
 
   # Description
-  desc <- stringr::str_replace_all(metadata_test$Eintrag[which(metadata_test$Metadata=="Beschreibung")], "\r\n+","</p><p>")
+  desc <- gsub("\r\n+","</p><p>",metadata_test$Eintrag[which(metadata_test$Metadata == "Beschreibung")])
+
   template_json$metadata$default$description$value <- paste0(
-    "<p>",desc,"</p>",
-    "<p></p><p>Datenquelle: ",metadata_test$Eintrag[which(metadata_test$Metadata=="Amt")]," Kanton Thurgau</p>"
+    "<p>",
+    desc,
+    "</p>",
+    "<p></p><p>Datenquelle: ",
+    metadata_test$Eintrag[which(metadata_test$Metadata == "Amt")],
+    " Kanton Thurgau</p>"
 
   )
 

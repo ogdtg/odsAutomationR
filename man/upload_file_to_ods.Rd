@@ -2,16 +2,18 @@
 % Please edit documentation in R/upload_file_to_ods.R
 \name{upload_file_to_ods}
 \alias{upload_file_to_ods}
-\title{upload_file_to_ods}
+\title{Uploads a file to ODS}
 \usage{
-upload_file_to_ods(filepath)
+upload_file_to_ods(dataset_uid, filepath)
 }
 \arguments{
-\item{filepath}{Pfad zum CSV File, das hochgeladen werden soll}
+\item{dataset_uid}{dataset_uid}
+
+\item{filepath}{path to CSV File}
 }
 \value{
-Liste mit Statuscode des API Calls
+results list
 }
 \description{
-Funktion um CSV Files hochzuladen
+Uploads a file to ODS
 }

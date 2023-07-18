@@ -4,14 +4,12 @@
 \alias{update_dataset_resource}
 \title{Update the dataset resource}
 \usage{
-update_dataset_resource(filepath, dataset_uid, resource_uid, encoding)
+update_dataset_resource(filepath, dataset_uid, resource_uid)
 }
 \arguments{
 \item{filepath}{path to csv file}
 
 \item{dataset_uid}{dataset_uid}
-
-\item{encoding}{encdoing of the csv file}
 }
 \value{
 resource_uid

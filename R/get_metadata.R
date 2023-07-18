@@ -4,8 +4,7 @@
 #'
 #' @param dataset_uid kann metadata_catalog entnommen werden
 #'
-#' @importFrom jsonlite fromJSON
-#' @importFrom httr GET
+
 #'
 #'
 #' @return Datensatz mit Metadaten eines gewünschten Datensatzes
@@ -30,22 +29,17 @@ get_metadata <- function(dataset_uid){
                    query = list(apikey=key))
 
 
-  if (api_type == "automation/v1.0") {
-    result <- prepare_response(res)
+  result <- prepare_response(res)
 
-    result <- lapply(seq_along(names(result)),function(i){
-      df  <- as.data.frame(do.call(rbind, result[[i]]))
-      df$name <- row.names(df)
-      row.names(df) <- 1:nrow(df)
-      df$template.name <- names(result)[i]
-      return(df)
-    }) %>%  bind_rows()
-  } else {
+  result <- lapply(seq_along(names(result)), function(i) {
+    df  <- as.data.frame(do.call(rbind, result[[i]]))
+    df$name <- row.names(df)
+    row.names(df) <- 1:nrow(df)
+    df$template.name <- names(result)[i]
+    return(df)
+  })
+  result <- do.call(rbind, result)
 
-    result <- res$content %>%
-      rawToChar() %>%
-      jsonlite::fromJSON()
-  }
 
   return(result)
 }

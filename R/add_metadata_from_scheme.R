@@ -33,20 +33,19 @@ add_metadata_from_scheme <- function(filepath,save_local = TRUE) {
 
 
   # Retrieve themes
-  theme_names <-
-    metadata_test$Eintrag[which(stringr::str_detect(metadata_test$Metadata, "Thema \\d"))]
+  theme_names <-metadata_test$Eintrag[grep(metadata_test$Metadata, "Thema \\d")]
   theme_names <- theme_names[!is.na(theme_names)]
   theme_ids <- themes$theme_id[which(themes$theme == theme_names)]
 
   # Retrieve Keywords
   keywords <-
     metadata_test$Eintrag[which(metadata_test$Metadata == "Schluesselwoerter")]
-  keywords <- stringr::str_split(keywords, ",")
+  keywords <- strsplit(keywords, ",")
 
   # Retrieve Attributions
   attributions <-
     metadata_test$Eintrag[which(metadata_test$Metadata == "Zuschreibungen")]
-  attributions <- stringr::str_split(attributions, ",")
+  attributions <- strsplit(attributions, ",")
 
   # Dataset ID
   template_json$dataset_id <- dataset_id
@@ -72,9 +71,8 @@ add_metadata_from_scheme <- function(filepath,save_local = TRUE) {
   template_json$metadata$default$keyword$value <- keywords[[1]]
 
   # Description
-  desc <-
-    stringr::str_replace_all(metadata_test$Eintrag[which(metadata_test$Metadata ==
-                                                           "Beschreibung")], "\r\n+", "</p><p>")
+  desc <- gsub("\r\n+","</p><p>",metadata_test$Eintrag[which(metadata_test$Metadata == "Beschreibung")])
+
   template_json$metadata$default$description$value <- paste0(
     "<p>",
     desc,

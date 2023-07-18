@@ -11,25 +11,8 @@
 #'
 add_file_to_dataset <- function(filepath,dataset_uid,encoding){
 
-  tryCatch({
-    key = getKey()
-    domain = getDomain()
-    api_type = getApiType()
-  },
-  error = function(cond) {
-    stop("Not all variables initilised. Use the set functions to set variables.")
 
-  })
-
-  files = list(
-    `file` = httr::upload_file(filepath)
-  )
-
-  res <- httr::POST(url = paste0('https://',domain,'/api/',api_type,'/datasets/',dataset_uid,"/resources/files"), body = files, encode = 'multipart',
-                    query=list(apikey=key))
-
-
-  result <- res$content %>% rawToChar() %>% jsonlite::fromJSON()
+  result <- upload_file_to_ods(dataset_uid=dataset_uid,filepath = filepath)
 
   body <- list(type = "csvfile",
                title = result$filename,
@@ -41,8 +24,8 @@ add_file_to_dataset <- function(filepath,dataset_uid,encoding){
     jsonlite::toJSON(auto_unbox = T)
 
 
-  res <- httr::POST(url = paste0('https://',domain,'/api/',api_type,'/datasets/',dataset_uid,"/resources/"), body = body,
-                    query=list(apikey=key),
+  res <- httr::POST(url = paste0('https://',getDomain(),'/api/',getApiType(),'/datasets/',dataset_uid,"/resources/"), body = body,
+                    query=list(apikey=getKey()),
                     httr::accept_json(),
                     httr::content_type_json())
 

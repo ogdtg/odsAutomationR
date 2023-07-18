@@ -1,17 +1,12 @@
-#' upload_file_to_ods
+#' Uploads a file to ODS
 #'
-#' Funktion um CSV Files hochzuladen
+#' @param dataset_uid dataset_uid
+#' @param filepath path to CSV File
 #'
-#' @param filepath Pfad zum CSV File, das hochgeladen werden soll
-#'
-#' @return Liste mit Statuscode des API Calls
+#' @return results list
 #' @export
 #'
-#' @importFrom httr POST
-#' @importFrom jsonlite fromJSON
-#' @importFrom httr upload_file
-#'
-upload_file_to_ods <- function(filepath) {
+upload_file_to_ods <- function(dataset_uid,filepath){
 
   tryCatch({
     key = getKey()
@@ -27,21 +22,11 @@ upload_file_to_ods <- function(filepath) {
     `file` = httr::upload_file(filepath)
   )
 
-  res <- httr::POST(url = paste0('https://',domain,'/api/',api_type,'/files'), body = files, encode = 'multipart',
+  res <- httr::POST(url = paste0('https://',domain,'/api/',api_type,'/datasets/',dataset_uid,"/resources/files"), body = files, encode = 'multipart',
                     query=list(apikey=key))
 
 
   result <- res$content %>% rawToChar() %>% jsonlite::fromJSON()
-
-
-  tryCatch({
-    exists(result$file_id)
-    print(paste0("File uploaded succesfully. Available on ODS with the name ",result$file_id," (",result$url,")"))
-  },
-  error = function(cond){
-    stop(paste0("error ",result$status_code,": ",result$message))
-
-  })
-
   return(result)
+
 }

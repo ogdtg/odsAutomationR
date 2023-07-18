@@ -4,6 +4,8 @@
 #'
 #' @param body JSON File erzeugt durch create_fields_body
 #' @param dataset_id kann metadata_catalog entnommen werden
+#' @param update if `TRUE` specific processor will be updated
+#' @param field_uid processor_uid (default is `NULL`)
 #'
 #' @importFrom httr authenticate
 #' @importFrom httr POST
@@ -19,11 +21,7 @@ add_field_config <- function(body, dataset_id, update = F, field_uid = NULL){
     stop("Not all variables initilised. Use the set functions to set variables.")
 
   })
-  if (api_type == "management/v2"){
-    httr::POST(url = paste0("https://",domain,"/api/",api_type,"/datasets/",dataset_id,"/fields_specifications/"),
-               body = body,
-               query = list(apikey=key))
-  } else {
+
     if (update){
       res <- httr::PUT(url = paste0("https://",domain,"/api/",api_type,"/datasets/",dataset_id,"/fields/",field_uid,"/"),
                         body = body,
@@ -43,8 +41,6 @@ add_field_config <- function(body, dataset_id, update = F, field_uid = NULL){
       result <- res$content %>% rawToChar() %>% jsonlite::fromJSON()
       return(result)
     }
-  }
-
 }
 
 

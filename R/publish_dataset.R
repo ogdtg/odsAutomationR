@@ -19,12 +19,22 @@ publish_dataset <- function(dataset_uid) {
   })
 
   tryCatch({
-   httr::POST(url = paste0('https://',domain,'/api/',api_type,'/datasets/',dataset_uid,'/publish'),
+   res <-httr::POST(url = paste0('https://',domain,'/api/',api_type,'/datasets/',dataset_uid,'/publish'),
               query = list(apikey=key))
+
+   if (res$status_code != 200){
+     Sys.sleep(4)
+     res <-httr::POST(url = paste0('https://',domain,'/api/',api_type,'/datasets/',dataset_uid,'/publish'),
+                      query = list(apikey=key))
+   }
   },
   error = function(cond){
     stop("Publishing process failed")
   })
+
+  if (res$status_code!=200){
+    stop("Publishing process failed")
+  }
 
 
 }

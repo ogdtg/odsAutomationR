@@ -16,20 +16,17 @@ get_number_of_datasets <- function(){
     stop("Not all variables initilised. Use the set functions to set variables.")
   })
 
-  if (api_type == "automation/v1.0") {
-    res <-
-      httr::GET(
-        url = paste0("https://", domain, "/api/", api_type, "/datasets/"),
-        httr::add_headers(`Content-Type` = "application/json; charset=UTF-8"),
-        query = list(limit = 0,
-                     apikey = key)
-      )
-    result <- res %>%
-      prepare_response() %>%
-      .$total_count
-    return(result)
-  } else {
-    get_dataset_info(save_local = F)
-    return(nrow(metadata_catalog))
-  }
+
+  res <-
+    httr::GET(
+      url = paste0("https://", domain, "/api/", api_type, "/datasets/"),
+      httr::add_headers(`Content-Type` = "application/json; charset=UTF-8"),
+      query = list(limit = 0,
+                   apikey = key)
+    )
+  result <- res %>%
+    prepare_response() %>%
+    .$total_count
+  return(result)
+
 }
