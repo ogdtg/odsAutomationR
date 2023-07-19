@@ -5,7 +5,7 @@
 #' @param dataset_uid Datensatz ID
 #' @param change_uid Change ID
 #'
-#'
+#' @export
 #'
 restore_change = function(dataset_uid, change_uid){
   tryCatch({
