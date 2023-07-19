@@ -4,10 +4,12 @@
 \alias{get_catalog}
 \title{Get detailed Meta Data}
 \usage{
-get_catalog(dataset_uid = NULL)
+get_catalog(dataset_uid = NULL, variables = NULL)
 }
 \arguments{
 \item{dataset_uid}{dataset_uid}
+
+\item{variables}{list of variables that should be downloaded}
 }
 \value{
 dataframe containing the meta data.

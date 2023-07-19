@@ -2,42 +2,48 @@
 
 
 # odsAutomationR
-With this package you can access the Automation API of Opendatasoft via R
-
+Mit dem `odsAutomationR` kann direkt aus R heraus auf die Automation API von Opendatasoft zugegriffen werden. Voraussetzung dafür ist, dass die API freigeschalten ist. Die ausführliche Dokumentation der API schnittstelle findet sich [hier](https://betahelp.opendatasoft.com/apis/ods-automation-v1/#tag/Datasets).
 
 ## Installation
 
 Die Dvelopement Version des Packages kann wie folgt installiert und genutzt werden:
 
 ``` r
-devtools::install_github("ogdtg/odsManagementR")
+devtools::install_github("ogdtg/odsAutomationR")
 library(odsManagementR)
 ```
 
-## User initialisieren
+## Variablen initialisieren
 
-Um Zugang zum jeweiligen ODS Portal zu bekommen und die Funktionalitäten der API nutzen zu können, muss zuerst ein User initialisiert werden. Dazu wird die `initialize_user` Funktion verwendet.
-Diese Funktion sollte nur dann benutzt werden, wenn noch kein API Key mit den entsprechenden Berechtigungen erstellt wurde.
-
-***ACHTUNG:*** *Die API Keys die man über das Frontend von ODS erstellen kann haben NICHT die ausreichenden Berechtigungen um die Management API nutzen zu können. Stand jetzt muss der API Key daher zwingend über einen API Call erstellt werden, auch wenn dies in der Dokumentation anders beschrieben wird.*
-
-Mit der `initialize_user` wird ein API Key erstellt und dieser direkt initialisiert, sodass das Package funktionsfähig wird.
+Um Zugang zum jeweiligen ODS Portal zu bekommen und die Funktionalitäten der API nutzen zu können, muss zuerst `api_type`,`domain`, `path` und `key` initialisiert werden. Dazu können die entsprechnenden set Funktionen verwendet werden.
 
 ```r
-initialize_user(username = "max.mustermann@tg.ch",
-                password = "xxxxxxxxx",
-                domain = "data.tg.ch")
+
+setKey("XXXXXXXXXXXXX") # API Key mit den entsprechenden berechtigungen
+setDomain("data.tg.ch") # Domain der Datenplattform
+setApiType("automation/v1.0") # Falls neue Versionen der API ersheinen, kann hier z.b. automation/v1.1 gesetzt werden
+setPath("path/to/data_catalog.csv") # OPTIONAL: Ort, an dem Metadaten Katalog lokal gespeichert werden soll bei get_dataset_info
+
 ```
-Der Key kann sowohl im Frontend unter `https://{domain}/account/api-keys/` als auch über `getKey()` abgerufen werden. Am Besten speichert man den Key als Variable in einem `.Renviron` File, sodass man ihn beim erneuten Nutzen des Packages erneut einlesen kann. Dann sollte man anstelle der `initialize_user` Funktion die Domain und den Key separat über `setDomain` bzw.`setKey` setzen.
+Um zu verhindern, dass diese Variablen jedes mal aufs neue gesetzt werden müssen, können diese mit `usethis::edit_r_environ()` ins globale R environment eingetragen werden. Nach dem ausführen der Funktion öffnet sich ebenjenes und man kann die Variablen in folgendem Schema eintragen:
 
-Die Nutzung des API Keys wird gegenüber der Nutzung von Passwort und Username bevorzugt, da API Keys einfach und schnell wieder gelöscht werden können.
+````r
+ODS_DOMAIN=data.tg.ch
+ODS_APITYPE=automation/v1.0
+ODS_KEY=XXXXXXXXXXXXXX
+ODS_PATH=path/to/data_catalog.csv
 
-Ein neuer API Key kann auch direkt über die `create_key` Funktion erstellt werden. Hier könenn auch Keys erstellt werden, die nur benutzerdefinierte Berechtigungen besitzen. Dies kann nützlich sein, wenn man zum Beispiel einer Person aus einem Amt Zugang zur API geben möcte, ohne dieser direkt alle Berechtigungen zu erteilen.
+```
+Um auf diese Variablen zugreifen zu können, muss R einmal neu gestartet werden. Danach werden die `set` Funktionen nur benötigt, wenn eine Änderung gewünscht ist.
+
+## API Key erstellen
+
+Ein API Key kann direkt über die `create_key` Funktion erstellt werden. Hier können auch Keys erstellt werden, die nur benutzerdefinierte Berechtigungen besitzen. Dies kann nützlich sein, wenn man zum Beispiel einer Person aus einem Amt Zugang zur API geben möchte, ohne dieser direkt alle Berechtigungen zu erteilen.
 
 Gibt man keine benutzerdefinierte Liste für das Argument `permissions` an, werden per default alle Berechtigungen erteilt.
 
 ```r
-apikey <- create_key(
+key <- create_key(
             key_name="Name des Keys",
             username="max.mustermann@tg.ch",
             password = "xxxxxxxxx",
@@ -48,18 +54,9 @@ apikey <- create_key(
               )
 )
 
-#User initialisieren
-setkey(apikey)
-setDomain("data.tg.ch")
-setPath("lokaler/Pfad/zu/data_catalog.csv")
-# Package ist nun funktionsfähig
-
 ```
 
-Die Daten werden dann in einem Environment namens `User` gespeichert und tauchen somit nicht im Global Environment auf. Abgerufen werden können die Daten mit get-Funktionen (z.B. `getKey()`, `getDomain()`)
-
-
-## Liste aller Datensätze erhalten
+## Liste aller Datensätze und ihrer Metadaten erhalten
 
 Mit der Funktion `get_dataset_info` wird der aktuelle Metdata Katalog heruntergeladen. Dieser beinhaltet die Metadaten aller Datensätze, die sich derzeit auf dem Datenportal befinden. Hierzu zählen auch unveröffentlichte Datensätze sowie Datenkataloge. Die Funktion erzeugt automatisch eine Environment Variable `metadata_catalog`, die die Daten erhält. Die Funktion wird von mehreren anderen Funktionen verwendet, um sicher zugehen, dass der Katalog immer auf dem neuesten Stand ist. Ausserdem wird der Katalog jedes mal auf dem Lokalen Pfad, der bei `path` angegeben ist gespeichert.
 
@@ -70,32 +67,41 @@ get_dataset_info(path=path)
 ## creates variable "metadata_catalog" and saves it under path 
 ```
 
-## Ermittlung der dataset_uid
+## Titel, UID und ID sowie einzelne Vraiablen erhalten
 
-Für viele der aufgeführten Funktionen wird die `dataset_uid` benötigt. Diese unterscheidet sich von der technischen Kennung (`dataset_id`, z.b. `sk-stat-1`). Um diese ODS-interne ID zu ermitteln kann entweder im `metadata_catalog` direkt nachgeschaut werden, oder es kann die `lookup_dataset_uid` Funktion verwendet werden.
-Hier kann einfach der Titel des Datensatzes oder die `dataset_id` als Argument angegeben werden. Die Funktion lädt dann den aktuellen Katalog herunter und ermittelt die entsprechende `dataset_uid` und gibt diese zurück.
+Mit der `get_catalog` können Metadaten von veröffentlichten Datensätzen bezogen werden. Veröffentlicht heisst in diesem Falle nicht, dass die Datensätze für alle User sichtbar und zugänglich sind, sondern lediglich, dass der "Veröffentlichen" Prozess ausgeführt wurde. 
+
+Ohne Argumente liefert die Funktion `dataset_id`, `dataset_uid` sowie `title`. Über das Argument `variables` können weitere Metadaten-Variablen in einem Vektor spezifiziert werden. Gibt man ausserdem die entsprechende `dataset_uid` mit, erhält man die Daten nur für den spezifizierten Datensatz.
+
+Im Vergleich zur `get_dataset_info` Funktion ist diese Funktion wesentlich schneller und einfacher anpassbar, liefert allerdings keine Daten von unveröffentlichten Datensätzen.
 
 ```r
-lookup_dataset_uid(id_or_title="dek-gs-4")
-# returns da_1aqp73
 
-lookup_dataset_uid(id_or_title = "Bildungsstatistik Kanton Thurgau")
-# returns da_1aqp73
+# Alle Datensätze ohne weitere Variablen
+get_catalog()
+
+# Standardvariablen aller Datensätze plus publisher und keyword
+get_catalog(variables = c("publisher","keyword"))
+
+# Standardvariablen für da_xxxx plus publisher und keyword  
+get_catalog(dataset_uid = "da_xxxx",variables = c("publisher","keyword"))
+
+
 ```
+
 
 
 ## Neuen Datensatz erstellen
 
 ### Wrapper Funktion
 
-Um Datensätze zu erstellen und sie direkt mit den Metadaten aus dem Excel Schema zu befüllen kann die wrapper-Funktion `add_metadata_from_scheme` verwendet werden. Hierzu muss lediglich der Pfad zum ausgefüllten Schema als `filepath` angeggeben werden. Optional kann noch eine Liste von `zuschreibungen` angegeben werden (default ist `NULL`). Wenn der Datensatz **NICHT** geharvested werden soll, muss `harvesting=FALSE` gesetzt werden (default ist `TRUE`). Die Funktion gibt die `dataset_uid` des neu erstellten Datensatzes zurück
+Um Datensätze zu erstellen und sie direkt mit den Metadaten aus dem Excel Schema zu befüllen kann die wrapper-Funktion `add_metadata_from_scheme` verwendet werden. Hierzu muss lediglich der Pfad zum ausgefüllten Schema als `filepath` angeggeben werden. Die Funktion gibt die `dataset_uid` des neu erstellten Datensatzes zurück
 
 Die einzelnen Schritte innerhalb der Funktion werden nachfolgend kurz beschrieben.
 
 ```r
-dataset_uid <- add_metadata_from_scheme(filepath="path/to/schema.xlsx", 
-                                        harvesting = TRUE, 
-                                        zuschreibungen = NULL)
+dataset_uid <- add_metadata_from_scheme(filepath="path/to/schema.xlsx")
+
 ```
 
 ### Datensatzkennung erstellen
@@ -105,16 +111,7 @@ Bevor ein neuer Datensatz erstellt werden kann, muss eine passende Kennung erzeu
 dataset_id <- create_new_dataset_id(part_id = "sk-stat")
 ## returns "sk-stat-116" 
 ```
-### Template Datensatz duplizieren
-Um gleichbleibende Metadaten nicht jedes mal neu einfügen zu müssen, lohnt es sich im ODS einen template Datensatz zu erstellen, der dann immer wieder dupliziert und neu befüllt wird. Dies kann mit der `duplicate_dataset` Funktion erreicht werden. Natürlich kann so auch jeder andere Datensatz kopiert dupliziert werden (nur Metadaten, nicht Datenquelle).
-Hierbei muss die `dataset_uid` des zu kopierenden Datensatzes als `copy_id`angegeben werden. Ausserdem die neue Kennung als `new_id` sowie der neue Titel als `title`. Hier bitte auf die richtige Kennung und einen eindeutigen Titel achten. Die Funktion gibt die `dataset_uid` des neu erzeugten Datensatz zurück.
 
-```r
-dataset_uid <- duplicate_dataset(copy_id = "da_xxxxxx",
-                                new_id = dataset_id,
-                                title = new_title)
-## returns dataset_uid in format da-xxxxxx
-```
 
 ### Metadaten einfügen
 Metadate können mithilfe der `set_metadata` Funktion eingefügt werden. Beim Parameter `dataset_id` muss die `dataset_uid` in Form `da-xxxxxx` anegeben werden. Dieser Parameter gibt an, für welchen Datensatz Metadaten gesetzt werden sollen. Die verfügbaren Werte für `template` können den Metadaten eines Datensatzes entnommen werden (Funktion `get_metadata(dataset_uid)`). Für data.tg.ch sind dies `custom`,`visualization`,`dcat`,`default`,`dcat_ap_ch` oder `internal`. Diese Werte sind als eine Art Übergruppe der einzelnen Metadaten zu verstehen und tauchen so teilweise auch im ODS Backend auf. Als `meta_name` muss der entsprechende Wert des Metadaten FelDes angegeben werden (z.B. `title`). Schliesslich muss der Wert, der gesetzt werden soll als `meta_value` angegeben werden. Für manche Metadaten Felder muss eine Liste als `meta_value` angegeben werden. Innerhalb der `add_metadata_from_scheme` Funktion wird für diesen Umstand kontrolliert und es werden automatisch listen erzeugt, wo es notwendig ist. Weitere Informatioenn können der offiziellen [Dokumentation der ODS Management API](https://betahelp.opendatasoft.com/management-api/#dataset-metadata) entnommen werden.
@@ -127,43 +124,24 @@ set_metadata(dataset_id = "da-xxxxxx",
 
 ```
 
+## Metadaten und Field Configuration updaten
+
+Um einen bestehenden Datensatz updaten zu könenn, kann die `update_metadata_and_fields` Funktion verwendet werden.
+
+```r
+update_metadata_and_fields(dataset_uid = "da_xxxxx", filepath = "path/to/schema.xlsx")
+
+```
+
 ## Daten hinzufügen
 
-### Wrapper Funktion
+### CSV-File zu Datensatz hinzufügen
 
-Um CSV Dateien vom lokalen System ins ODS zu laden, den im vorherigen Schritt erstellten Metadatensatz mit der Datenresource zu verbinden und die Spaltenbeschreibungen und Datentypen zu bearbeiten, kann die `add_data_to_dataset` Funktion verwendet werden. Als Parameter muss hier die `dataset_uid` anegegeben werden, die `add_metadata_from_scheme` zurück gibt. Ausserdem muss der Pfad zum ausgefüllten Schema sowie zum lokalen CSV File mit den Daten angegeben werden. Schliesslich muss ein Titel für die Resource auf ODS angegeben werden.
-
-```r
-add_data_to_dataset(
-  dataset_uid = dataset_uid,
-  schema = "path/to/schema.xlsx",
-  ogd_file = "path/to/upload_data.csv",
-  resource_title = "New Resource Title"
-)
-```
-
-Die enthaltenen Schritte werden nun kurz erläutert.
-
-### Lokale CSV Datei auf ODS hochladen
-
-Das aufbereitete CSV File kann mit der `upload_file_to_ods` Funktion auf ODS hochgeladen werden. Dabei muss nur der Pfad zum entsprechenden File angegeben werden. Dei Funktion gibt eine Liste mit verschiedenen Metadaten des Files zurück, u.a. die `file_id`, die für die Verknüpfung mit dem Datensatz benötigt wird. Eine Übersicht über alle Files auf ODS kann mit der `list_ods_files` angezeigt werden. Die Funktion erzeugt einen Datensatz den Metadaten aller Files.
+Um CSV Dateien vom lokalen System ins ODS zu laden, den im vorherigen Schritt erstellten Metadatensatz mit der Datenresource zu verbinden und die Spaltenbeschreibungen und Datentypen zu bearbeiten, kann die `add_file_to_dataset` Funktion verwendet werden. Als Parameter muss hier die `dataset_uid` anegegeben werden, die `add_metadata_from_scheme` zurück gibt. Ausserdem muss der Pfad zum lokalen CSV File mit den Daten angegeben werden sowie das entsprechende Encoding. 
 
 ```r
-ods_files <- list_ods_files()
-# returns dataframe with metadata on all files on ODS
+add_file_to_dataset(filepath "path/to/csv_file.csv",dataset_uid = "da_xxxx",encoding = "utf-8"){
 
-filename_ods <- upload_file_to_ods("path/to/upload_data.csv")
-```
-
-### Ressource mit Metadaten verknüpfen
-
-Nachdem das CSV File hochgeladen wurde, muss es noch mit dem entsprechenden Metadatensatz verknüpft werden. Dies kann mithilfe der `add_resource_to_data` bewerkstelligt werden. Hierzu wird die vorhin erwähnte `file_id` als Parameter benötigt. Diese kann auch der File Liste entnommen werden, die durch `list_ods_files` erzeugt wird. Als zweiter Parameter muss die `dataset_uid` des Datensatzes mit dem das File verknüpft werden soll, angegeben werden. Schliesslich muss ein Titel für die Ressource angegeben werden.
-
-```r
-add_resource_to_data(resource = filename_ods$file_id,
-                      dataset_uid = dataset_uid,
-                      title = "The new resource Title")
-# Uses the filename_ods list created by the upload_file_to_ods command
 ```
 
 ### Spaltennamen und -beschreibungen sowie Datentypen ergänzen
@@ -178,93 +156,12 @@ Abschliessend müsssen noch die Spaltennamen bearbeitet, die Spaltenbeschreibung
 * `make_fields_sortable`
 
 
-#### rename_field
-
-Die Funktion benötigt als Parameter die `dataset_id`, den aktuellen namen im ODS (`old_name`), den neuen Namen (`new_name`) sowie das neue Label (`new_label`). Eigentlich sollte das Label den Namen bezeichnen, der beim Hovern über den Spaltennamen im ODS erscheint. Allerdings erscheint im ODS die Beschreibung der Spalten. Deshalb ist zu empfehlen den gleichen Wert für `new_name` und `new_label` zu verwenden.
-```r 
-rename_field(
-        dataset_uid = "da-xxxxxx",
-        old_name = "current_var_name",
-        new_name = "new_var_name",
-        new_label = "new_var_name"
-      )
-
-```
-
-Innerhalb der wrapper Funktion wird gecheckt, ob sich der aktuelle Name im ODS vom Namen im Excel Schema unterscheidet und entsprechend angepasst (Name aus Excel wird übernommen).
-
-#### add_description_to_field
-
-Mit der Funktion kann eine Variablenbeschreibung hinzugefügt/geändert werden. Dazu muss wieder die entsprechende `dataset_uid` sowie der Name der Variable (`field_name`)  angegeben werden. Die neue Beschreibung kann dann als `new_description` Parameter angegeben werden.
-```r
-add_description_to_field(
-      dataset_uid = "da-xxxxxx",
-      field_name = "current_var_name",
-      new_description = "New Description vor variable"
-    )
-```
-
-#### add_type
-
-Die Definition des Datentyps funktioniert nach dem gleichen Prinzip wie das Hinzufügen der Beschreibung. Wieder müssen `dataset_uid` und `field_name` aneggeben werden. Der gewünschte Datentyp wird als `new_type` an die Funktion übergeben. Die verfügbaren Datentypen sind `text`,`int`,`double`,`geo_point_2d`,`geo_shape`,`date`,`datetime` und `file`.
-
+Mit der `edit_fields()` Funktion kann dies direkt aus dem Schema heraus erledigt werden (alle Funktionen können aber auch einzeln ausgeführt werden). Benötigt wird lediglich der Pfad zum Schema sowie die `dataset_uid`
 
 ```r
-add_type(
-      dataset_uid = "da-xxxxxx",
-      field_name = "current_var_name",
-      new_type  = "int"
-    )
-# sets datatype to integer
-```
 
-#### add_unit
-
-Falls möglich kann eine Einheit hinzugefügt werden. Verfügbare Einheiten auf ODS köönen [hier](https://betahelp.opendatasoft.com/management-api/#units) eingesehen werden.
-Wenn im Schema keine Einheit angegeben wird, überspringt die wrapper Funktion diesen Schritt
-
-```r
-add_unit(
-        dataset_uid = "da-xxxxxx",
-        field_name = "current_var_name",
-        unit = "kg"
-        )
-# adds unit kilogramm
-```
-
-#### add_timeserie_precision
-
-
-Mit dieser Funktion kann bestimmt werden wie Datumsangaben angezeigt werden sollen. Als `year` oder `day` im Falle von `date`; als `hour` oder `minute` für `datetime`.
-Hierbei handelt es sich um eine sogenannte "Annotation". Weitere Annotationen können [hier](https://betahelp.opendatasoft.com/management-api/#annotate) eingesehen werden.
-
-
-
-```r 
-add_datetime_precision(
-        dataset_uid = "da-xxxxxx",
-        field_name = "jahr",
-        annotation_args = "year"
-      )
-```
-
-
-#### make_fields_sortable
-
-Da Textfelder per Default nicht sortierbar sidn, muss dies explizit definiert werden. Dazu wird im Prozess die `make_fields_sortable` Funktion verwendet. Diese bewirkt, dass im Frontend alle Spalten mit dem Datentyp "Text" sortierbar werden. Die gewünschten Felder müssen unter dem Argument `fields` als Vektor angegeben werden. Werden Felder angegeben, die einen anderen Datentyp als Text aufweisen, werden diese Felder NICHT verändert.
-
-```r
-make_fields_sortable(
-  dataset_uid = "da-xxxxxx",
-  fields = c("name", "gemeinde", "kanton", "other_text_field")
-)
-
-```
-
-Alternativ kann auch die die `make_all_fields_sortable` Funktion verwendet werden. Diese macht ALLE Spalten mit dem Datentyp Text sortierbar.
-
-```r
-make_all_fields_sortable(dataset_uid = "da-xxxxxx")
+edit_fields(dataset_uid = dataset_uid, 
+            schema = "path/to/schema.xlsx")
 
 ```
 
@@ -281,6 +178,15 @@ publish_dataset("da-xxxxxx")
 
 ## Datensatz löschen
 
-Datensätze können mithilfe der `delete_dataset` gelöscht werden. Dazu muss lediglich die `dataset_uid`, die `dataset_id` oder der Titel des Datensatzes angegeben werden. Vor der Löschung wird ausserdem noch einmal nach einer Bestätigung gefragt, um versehentliche Löschungen zu vermeiden. 
+Datensätze können mithilfe der `delete_dataset` gelöscht werden. Dazu muss lediglich die `dataset_uid`, die `dataset_id` oder der Titel des Datensatzes angegeben werden. Vor der Löschung wird ausserdem noch einmal nach einer Bestätigung gefragt, um versehentliche Löschungen zu vermeiden. Um dies zu deaktivierne kann `ask=FALSE` gesetzt werden.
 
 ```r
+
+delete_dataset("da-xxxxxx", ask = FALSE)
+
+
+```
+
+
+
+
