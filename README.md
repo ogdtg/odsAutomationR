@@ -73,7 +73,7 @@ Mit der `get_catalog` können Metadaten von veröffentlichten Datensätzen bezog
 
 Ohne Argumente liefert die Funktion `dataset_id`, `dataset_uid` sowie `title`. Über das Argument `variables` können weitere Metadaten-Variablen in einem Vektor spezifiziert werden. Gibt man ausserdem die entsprechende `dataset_uid` mit, erhält man die Daten nur für den spezifizierten Datensatz.
 
-Im Vergleich zur `get_dataset_info` Funktion ist diese Funktion wesentlich schneller und einfacher anpassbar, liefert allerdings keine Daten von unveröffentlichten Datensätzen.
+Im Vergleich zur `get_dataset_info` Funktion ist diese Funktion wesentlich schneller und einfacher anpassbar, liefert allerdings keine Daten von unveröffentlichten Datensätzen. Die Funktion verwendet ausserdem nicht die Automation API sondern die Explore API.
 
 ```r
 
