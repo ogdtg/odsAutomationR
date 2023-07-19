@@ -27,7 +27,7 @@ setPath("path/to/data_catalog.csv") # OPTIONAL: Ort, an dem Metadaten Katalog lo
 ```
 Um zu verhindern, dass diese Variablen jedes mal aufs neue gesetzt werden müssen, können diese mit `usethis::edit_r_environ()` ins globale R environment eingetragen werden. Nach dem ausführen der Funktion öffnet sich ebenjenes und man kann die Variablen in folgendem Schema eintragen:
 
-````r
+```r
 ODS_DOMAIN=data.tg.ch
 ODS_APITYPE=automation/v1.0
 ODS_KEY=XXXXXXXXXXXXXX
