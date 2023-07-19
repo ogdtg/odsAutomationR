@@ -1,16 +1,6 @@
 #init env
 user <- new.env()
 
-# Sets the value of the variable
-#' setUsername
-#'
-#' @param username ODS Username
-#'
-#' @export
-#'
-setUsername <- function(username) {
-  assign("username", username, env=user)
-}
 
 # Sets the value of the variable
 #' setKey
@@ -23,15 +13,6 @@ setKey <- function(apikey) {
   assign("apikey", apikey, env=user)
 }
 
-# Gets the value of the variable
-#' getUsername
-#'
-#' @return username
-#' @export
-#'
-getUsername <- function() {
-  return(get("username", user))
-}
 
 #' getKey
 #'
@@ -39,29 +20,13 @@ getUsername <- function() {
 #' @export
 #'
 getKey <- function() {
+  env_var <- Sys.getenv("ODS_KEY")
+  if(env_var!=""){
+    return(env_var)
+  }
   return(get("apikey", user))
 }
 
-# Sets the value of the variable
-#' setPassword
-#'
-#' @param password ODS-Passwort
-#'
-#' @export
-#'
-setPassword <- function(password) {
-  assign("password", password, env=user)
-}
-
-# Gets the value of the variable
-#' getPassword
-#'
-#' @return password
-#' @export
-#'
-getPassword<- function() {
-  return(get("password", user))
-}
 
 #' setDomain
 #'
@@ -82,6 +47,10 @@ setDomain <- function(domain) {
 #' @export
 #'
 getDomain<- function() {
+  env_var <- Sys.getenv("ODS_DOMAIN")
+  if(env_var!=""){
+    return(env_var)
+  }
   return(get("domain", user))
 }
 
@@ -101,6 +70,10 @@ setPath <- function(path) {
 #' @export
 #'
 getPath<- function() {
+  env_var <- Sys.getenv("ODS_PATH")
+  if(env_var!=""){
+    return(env_var)
+  }
   return(get("path", user))
 }
 
@@ -121,28 +94,11 @@ setApiType <- function(api_type) {
 #' @export
 #'
 getApiType <- function() {
+  env_var <- Sys.getenv("ODS_APITYPE")
+  if(env_var!=""){
+    return(env_var)
+  }
   return(get("ApiType", user))
 }
 
-
-#' setUser
-#'
-#'Funktion um User Daten zu setzen um package nutzen zu können
-#'
-#' @param username ODS-Username
-#' @param password ODS-Passwort
-#' @param apikey API-Key mit den benötigten Berechtigungen (default=NULL)
-#' @param domain Domain des Portals (z.B. data.tg.ch)
-#' @param path Pfad wo der Metadata Katalog auf lokal gespeichert werden soll
-#' @param api_type automation/v1.0
-#'
-#' @export
-#'
-setUser <- function(username=NULL,password=NULL,apikey,domain,path = NULL,api_type =NULL){
-  setUsername(username)
-  setPassword(password)
-  setKey(apikey)
-  setDomain(domain)
-  setApiType(api_type)
-}
 
