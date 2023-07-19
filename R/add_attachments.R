@@ -9,6 +9,7 @@
 #' @export
 #'
 add_attachments <- function(directory=NULL, files=NULL, dataset_uid) {
+
   if (is.null(directory) && is.null(files)) {
     stop("Either files or directory must be provided")
   }
