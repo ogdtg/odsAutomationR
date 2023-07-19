@@ -41,10 +41,10 @@ get_dataset_changes = function(dataset_uid){
     stop(paste0("API Call returned Error ", res$status_code))
   }
 
-  red_results <- result$results
-  red_results$dataset_uid <-dataset_uid
-  names(red_results)[names(red_results)=="created_at"] <- "timestamp"
-  names(red_results)[names(red_results)=="uid"] <- "change_uid"
+  red_result <- result$results
+  red_result$dataset_uid <-dataset_uid
+  names(red_result)[names(red_result)=="created_at"] <- "timestamp"
+  names(red_result)[names(red_result)=="uid"] <- "change_uid"
 
 
 

@@ -42,9 +42,9 @@ update_resource <-  function(dataset_uid, resource_uid = NULL,filepath, encoding
   ) %>%
     jsonlite::toJSON(auto_unbox = T)
 
-  res <- httr::PUT(url = paste0("https://",domain,"/api/",api_type,"/datasets/",dataset_uid,"/resources/",resource_uid,"/"),
+  res <- httr::PUT(url = paste0("https://",getDomain(),"/api/",getApiType(),"/datasets/",dataset_uid,"/resources/",resource_uid,"/"),
              body = body,
-             query = list(apikey = key),
+             query = list(apikey = getKey()),
              httr::accept_json(),
              httr::content_type_json())
 

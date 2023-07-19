@@ -33,7 +33,7 @@ add_metadata_from_scheme <- function(filepath,save_local = TRUE) {
 
 
   # Retrieve themes
-  theme_names <-metadata_test$Eintrag[grep(metadata_test$Metadata ,"Thema \\d")]
+  theme_names <-metadata_test$Eintrag[grep("Thema \\d",metadata_test$Metadata)]
   theme_names <- theme_names[!is.na(theme_names)]
   theme_ids <- themes$theme_id[which(themes$theme %in% theme_names)]
 
@@ -64,8 +64,12 @@ add_metadata_from_scheme <- function(filepath,save_local = TRUE) {
 
 
   # Theme
-  template_json$metadata$internal$theme_id$value <-
-    list(theme_ids)
+  if (length(theme_ids)==1){
+    theme_ids <- list(theme_ids)
+  } else if (length(theme_ids)==0){
+    theme_ids <- NULL
+  }
+  template_json$metadata$internal$theme_id$value <- theme_ids
 
   # Keywords
   template_json$metadata$default$keyword$value <- keywords[[1]]

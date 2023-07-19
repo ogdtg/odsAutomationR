@@ -63,7 +63,13 @@ update_metadata_and_fields <- function(dataset_uid,filepath){
 
 
   # Theme
-  template_json$metadata$internal$theme_id$value <- list(theme_ids)
+  if (length(theme_ids)==1){
+    theme_ids <- list(theme_ids)
+  } else if (length(theme_ids)==0){
+    theme_ids <- NULL
+  }
+  template_json$metadata$internal$theme_id$value <- theme_ids
+
 
   # Keywords
   template_json$metadata$default$keyword$value <- keywords[[1]]

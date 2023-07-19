@@ -24,7 +24,7 @@ reupload_resource <- function(dataset_uid, resource_uid = NULL,filepath, encodin
     resource_uid <- resource_info$results$uid[nrow(resource_info$results)]
   }
 
-  delete_resource(resource_uid)
+  delete_resource(dataset_uid,resource_uid)
   resource_uid <- add_file_to_dataset(filepath = filepath, dataset_uid = dataset_uid, encoding = encoding)
   return(resource_uid)
 }
