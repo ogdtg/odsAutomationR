@@ -31,7 +31,7 @@ update_metadata_and_fields <- function(dataset_uid,filepath){
   # Retrieve themes
   theme_names <-metadata_test$Eintrag[grep(metadata_test$Metadata, "Thema \\d")]
   theme_names <- theme_names[!is.na(theme_names)]
-  theme_ids <- themes$theme_id[which(themes$theme == theme_names)]
+  theme_ids <- odsAutomationR::themes$theme_id[which(odsAutomationR::themes$theme %in% theme_names)]
 
   # Retrieve Keywords
   keywords <-
