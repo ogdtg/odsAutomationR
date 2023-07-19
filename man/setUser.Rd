@@ -23,6 +23,8 @@ setUser(
 \item{domain}{Domain des Portals (z.B. data.tg.ch)}
 
 \item{path}{Pfad wo der Metadata Katalog auf lokal gespeichert werden soll}
+
+\item{api_type}{automation/v1.0}
 }
 \description{
 Funktion um User Daten zu setzen um package nutzen zu können

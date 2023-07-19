@@ -8,6 +8,8 @@ get_field_processors(dataset_uid, limit = NULL)
 }
 \arguments{
 \item{dataset_uid}{kann metadata_catalog entnommen werden}
+
+\item{limit}{number of field processors (default is `NULL`)}
 }
 \value{
 dataframe mit processor Schritten

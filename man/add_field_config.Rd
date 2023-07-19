@@ -10,6 +10,10 @@ add_field_config(body, dataset_id, update = F, field_uid = NULL)
 \item{body}{JSON File erzeugt durch create_fields_body}
 
 \item{dataset_id}{kann metadata_catalog entnommen werden}
+
+\item{update}{if `TRUE` specific processor will be updated}
+
+\item{field_uid}{processor_uid (default is `NULL`)}
 }
 \description{
 Funktiion führt POST request mit erzrugtem JSON Body durch

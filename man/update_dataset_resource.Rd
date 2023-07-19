@@ -10,6 +10,8 @@ update_dataset_resource(filepath, dataset_uid, resource_uid)
 \item{filepath}{path to csv file}
 
 \item{dataset_uid}{dataset_uid}
+
+\item{resource_uid}{resource_uid}
 }
 \value{
 resource_uid

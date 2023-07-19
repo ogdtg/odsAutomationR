@@ -7,7 +7,7 @@
 setApiType(api_type)
 }
 \arguments{
-\item{api_type}{automation/v1.0 oder management/v2}
+\item{api_type}{automation/v1.0}
 }
 \description{
 setApiType

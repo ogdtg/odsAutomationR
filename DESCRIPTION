@@ -7,3 +7,10 @@ License: MIT + file LICENSE
 URL: http://ogd.tg.ch
 BugReports: http://ogd.tg.ch
 Encoding: UTF-8
+Imports: 
+    glue,
+    httr,
+    jsonlite,
+    magrittr,
+    readxl
+RoxygenNote: 7.2.1
