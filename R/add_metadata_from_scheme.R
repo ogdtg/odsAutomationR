@@ -33,9 +33,9 @@ add_metadata_from_scheme <- function(filepath,save_local = TRUE) {
 
 
   # Retrieve themes
-  theme_names <-metadata_test$Eintrag[grep(metadata_test$Metadata, "Thema \\d")]
+  theme_names <-metadata_test$Eintrag[grep(metadata_test$Metadata ,"Thema \\d")]
   theme_names <- theme_names[!is.na(theme_names)]
-  theme_ids <- themes$theme_id[which(themes$theme == theme_names)]
+  theme_ids <- themes$theme_id[which(themes$theme %in% theme_names)]
 
   # Retrieve Keywords
   keywords <-
