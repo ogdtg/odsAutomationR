@@ -16,7 +16,7 @@ create_new_dataset_id = function(test_id,save_local = TRUE, metadata_cat = NULL)
   }
 
   id_mod = gsub("-\\d+","",test_id)
-  id_vec = metadata_cat$fields.dataset_id[grep(id_mod,metadata_cat$fields.dataset_id)]
+  id_vec = metadata_cat$dataset_id[grep(id_mod,metadata_cat$dataset_id)]
   if (length(id_vec)==0){
     new_id = paste0(test_id,"-1")
     return(new_id)

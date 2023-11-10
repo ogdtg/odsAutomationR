@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 FILES/
 ^LICENSE\.md$
+^man-roxygen
