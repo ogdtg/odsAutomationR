@@ -10,7 +10,7 @@ Die Dvelopement Version des Packages kann wie folgt installiert und genutzt werd
 
 ``` r
 devtools::install_github("ogdtg/odsAutomationR")
-library(odsManagementR)
+library(odsAutomationR)
 ```
 
 ## Variablen initialisieren
