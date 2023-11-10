@@ -15,7 +15,7 @@ delete_field_config(
 )
 }
 \arguments{
-\item{dataset_uid}{dataset_uid (default is `NULL`)}
+\item{dataset_uid}{the internal uid of the dataset. The dataset_uid can be taken from the catalog}
 
 \item{type}{which types of configs should be deleted (default is `NULL`)}
 
@@ -28,6 +28,32 @@ delete_field_config(
 \item{fc}{a dataset of field configs (default is `NULL`)}
 
 \item{processor_uid}{which processor_uid should be deleted (default is `NULL`)}
+
+\item{schema}{path to the metadata xlsx schema}
+
+\item{filepath}{path to the csv file where the actual data is stored}
+
+\item{save_local}{if `TRUE`, the catalog will be saved locally}
+
+\item{resource_uid}{the internal uid of a specific resource (namely a csv file or an attachment)}
+
+\item{change_uid}{the internal uid of a change}
+
+\item{encoding}{File encoding (for example utf-8)
+
+Attachments}
+
+\item{directory}{Pfad zu Ordner welcher alle Anlagen enthält (Wenn nicht NULL, werden alle Inhalte des Ordners hochgeladen)}
+
+\item{files}{eines oder mehrere Files die als Anlage hochgeladen werden
+
+Metadata}
+
+\item{template}{kann metadata_catalog entnommen werden}
+
+\item{meta_name}{kann metadata_catalog entnommen werden}
+
+\item{meta_value}{neuer Wert}
 }
 \description{
 Deletes specified field configs of dataset. If dataset_uid is the only given argument, all field configs will be deleted

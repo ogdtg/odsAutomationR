@@ -4,18 +4,17 @@
 #' Funktion kann nur auf genau definiertes Schema angewendet werden.
 #' Alle Metadaten im Schema werden auf das Portal gesladen.
 #'
-#' @param filepath Pfad zum ausgefüllten Schema
-#' @param save_local siehe get_dataset_info
+#' @template template_params
 #'
 #' @return dataset_uid
 #' @export
 #'
-add_metadata_from_scheme <- function(filepath,save_local = TRUE) {
+add_metadata_from_scheme <- function(schema,save_local = TRUE) {
 
 
 
 
-  metadata_test <- readxl::read_excel(filepath,sheet="Metadaten") #read schema
+  metadata_test <- readxl::read_excel(schema,sheet="Metadaten") #read schema
   #names(metadata_test)[1]<-"Metadata"
   metadata_test["Beispiel"]<-NULL
 

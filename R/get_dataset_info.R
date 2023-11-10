@@ -3,8 +3,7 @@
 #' Funktion um alle derzeit aufgeschalteten Metadaten herunterzuladen. Hier kann auch die dataset_uid entnommen werden.
 #' Der Catalog wird automatisch in der Variable metadata_catalog gespeichert
 #'
-#' @param save_local logical ob Katalog lokal gespeichert werden soll (default ist TRUE)
-#' @param dataset_uid dataset_uid wenn dataset_info von einem bestimmten dataset heruntergeladen werden soll
+#' @template template_params
 #'
 
 #' @export

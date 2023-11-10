@@ -2,15 +2,13 @@
 #'
 #'Funktion um Metadaten eines bestimmten Datensatzes zu erhalten
 #'
-#' @param dataset_uid kann metadata_catalog entnommen werden
-#'
-
-#'
+#' @template template_params
+#' @param as_list if `TRUE` the function will return the original JSON as list instead of as data.frame (default is `FALSE`)
 #'
 #' @return Datensatz mit Metadaten eines gewünschten Datensatzes
 #' @export
 #'
-get_metadata <- function(dataset_uid){
+get_metadata <- function(dataset_uid, as_list = FALSE){
   tryCatch({
     key = getKey()
     domain = getDomain()
@@ -29,7 +27,12 @@ get_metadata <- function(dataset_uid){
                    query = list(apikey=key))
 
 
+
+
   result <- prepare_response(res)
+  if (as_list){
+    return(result)
+  }
 
   result <- lapply(seq_along(names(result)), function(i) {
     df  <- as.data.frame(do.call(rbind, result[[i]]))

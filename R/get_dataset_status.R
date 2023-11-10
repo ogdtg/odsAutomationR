@@ -2,7 +2,7 @@
 #'
 #' Datensatz Status herunterladen
 #'
-#' @param dataset_uid Datensatz ID
+#' @template template_params
 #'
 #' @return Name des dataset_status
 #' @export

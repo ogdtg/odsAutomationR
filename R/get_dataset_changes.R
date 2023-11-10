@@ -2,7 +2,7 @@
 #'
 #' Datensatz Historie herunterladen
 #'
-#' @param dataset_uid Datensatz ID
+#' @template template_params
 #'
 #' @return Datensatz mit allen Datenquellen die dem entsprechenden ODS Datensatz zugeordnet sind
 #' @export

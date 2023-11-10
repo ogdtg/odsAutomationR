@@ -2,8 +2,7 @@
 #'
 #' Funktion unpublished Datensatz, verändert aber NICHT die Sicherheitseinstellung (Datensatz nur für zugelassene Benutzer sichtbar)
 #'
-#' @param dataset_uid kann metadata_catalog entnommen werden
-#' @importFrom httr PUT
+#' @param encoding File encoding
 #'
 #' @export
 #'

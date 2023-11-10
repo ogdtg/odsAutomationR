@@ -7,7 +7,7 @@
 unpublish_dataset(dataset_uid)
 }
 \arguments{
-\item{dataset_uid}{kann metadata_catalog entnommen werden}
+\item{encoding}{File encoding}
 }
 \description{
 Funktion unpublished Datensatz, verändert aber NICHT die Sicherheitseinstellung (Datensatz nur für zugelassene Benutzer sichtbar)

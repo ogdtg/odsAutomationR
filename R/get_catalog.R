@@ -1,6 +1,6 @@
 #' Get detailed Meta Data
 #'
-#' @param dataset_uid dataset_uid
+#' @template template_params
 #' @param variables list of variables that should be downloaded
 #'
 #' @description Function to retrieve meta data from the backend. This function is for internal use only. An API key must be specified and passed to the function.

@@ -7,11 +7,7 @@
 update_attachments(directory = NULL, files = NULL, dataset_uid)
 }
 \arguments{
-\item{directory}{Pfad zu Ordner welcher alle Anlagen enthält (Wenn nicht NULL, werden alle Inhalte des Ordners hochgeladen)}
-
-\item{files}{eines oder mehrere Files die als Anlage hochgeladen werden}
-
-\item{dataset_uid}{dataset_uid,dataset_id oder Datensatz Titel können angegeben werden}
+\item{encoding}{File encoding}
 }
 \description{
 Funktion um Datensatz Anhänge zu löschen und neue hochzuladen

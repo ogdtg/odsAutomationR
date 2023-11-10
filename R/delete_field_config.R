@@ -2,7 +2,7 @@
 #'
 #' Deletes specified field configs of dataset. If dataset_uid is the only given argument, all field configs will be deleted
 #'
-#' @param dataset_uid dataset_uid (default is `NULL`)
+#' @template template_params
 #' @param type which types of configs should be deleted (default is `NULL`)
 #' @param annotation which annotation types should be deleted (default is `NULL`)
 #' @param field_uid which configs for specified field should be deleted (default is `NULL`)

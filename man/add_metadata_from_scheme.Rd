@@ -4,12 +4,36 @@
 \alias{add_metadata_from_scheme}
 \title{add_metadata_from_scheme}
 \usage{
-add_metadata_from_scheme(filepath, save_local = TRUE)
+add_metadata_from_scheme(schema, save_local = TRUE)
 }
 \arguments{
-\item{filepath}{Pfad zum ausgefüllten Schema}
+\item{schema}{path to the metadata xlsx schema}
 
-\item{save_local}{siehe get_dataset_info}
+\item{save_local}{if `TRUE`, the catalog will be saved locally}
+
+\item{dataset_uid}{the internal uid of the dataset. The dataset_uid can be taken from the catalog}
+
+\item{filepath}{path to the csv file where the actual data is stored}
+
+\item{resource_uid}{the internal uid of a specific resource (namely a csv file or an attachment)}
+
+\item{change_uid}{the internal uid of a change}
+
+\item{encoding}{File encoding (for example utf-8)
+
+Attachments}
+
+\item{directory}{Pfad zu Ordner welcher alle Anlagen enthält (Wenn nicht NULL, werden alle Inhalte des Ordners hochgeladen)}
+
+\item{files}{eines oder mehrere Files die als Anlage hochgeladen werden
+
+Metadata}
+
+\item{template}{kann metadata_catalog entnommen werden}
+
+\item{meta_name}{kann metadata_catalog entnommen werden}
+
+\item{meta_value}{neuer Wert}
 }
 \value{
 dataset_uid

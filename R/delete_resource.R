@@ -2,8 +2,7 @@
 #'
 #' Resource eines Datensatzes löschen
 #'
-#' @param dataset_uid dataset_uid des Datensatz, dem die Ressource zugeordnet werden soll
-#' @param resource_uid resource_id of the resource that should be updated
+#' @template template_params
 #'
 #'
 #' @export

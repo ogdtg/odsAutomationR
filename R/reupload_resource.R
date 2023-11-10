@@ -1,9 +1,6 @@
 #' Delete and reupload resource
 #'
-#' @param dataset_uid dataset_uid des Datensatz, dem die Ressource zugeordnet werden soll
-#' @param resource_uid resource_id of the resource that should be updated
-#' @param filepath Pfad zum CSV File
-#' @param encoding File encoding
+#' @template template_params
 #'
 #' @export
 #'

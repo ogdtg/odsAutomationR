@@ -1,7 +1,6 @@
 #' Uploads a file to ODS
 #'
-#' @param dataset_uid dataset_uid
-#' @param filepath path to CSV File
+#' @template template_params
 #'
 #' @return results list
 #' @export

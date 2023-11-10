@@ -2,7 +2,7 @@
 #'
 #' Funktion um Datensatz zu löschen
 #'
-#' @param dataset_uid dataset_uid,dataset_id oder Datensatz Titel können angegeben werden
+#' @template template_params
 #' @param ask wenn TRUE wird nach Bestätigung durch USer gefragt.
 #'
 #' @export

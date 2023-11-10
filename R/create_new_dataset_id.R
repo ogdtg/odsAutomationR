@@ -3,7 +3,7 @@
 #' Funktion erzeugt Kennung mit durchgängiger Nummerierung ohne Duplikate
 #'
 #' @param test_id String in Form Departement-Amt (Beispiel: sk-stat)
-#' @param save_local see `get_dataset_info()`
+#' @template template_params
 #' @param metadata_cat Metadaten Katalog (default ist `NULL`)
 #'
 #' @return dataset_id/technische Kennung

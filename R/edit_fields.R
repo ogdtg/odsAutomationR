@@ -1,7 +1,6 @@
 #' Feldkonfigurationen hinzufügen
 #'
-#' @param dataset_uid dataset_uid
-#' @param schema Pfad zum Excel Schema
+#' @template template_params
 #' @param original_names Namen aus dem `data_info.rds`. default ist `NULL`
 #'
 #' @export
@@ -13,6 +12,11 @@ edit_fields <- function(dataset_uid, schema, original_names = NULL) {
   } else{
     spalten <- schema[rowSums(is.na(schema)) != ncol(schema), ]
   }
+
+  if (is.null(original_names)) {
+    spalten$Name_Original <- tolower(spalten$Name_Neu)
+  }
+
 
   if (is.null(original_names)) {
     original_names <- spalten$Name_Original

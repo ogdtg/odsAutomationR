@@ -4,7 +4,7 @@
 #'
 #' @param directory Pfad zu Ordner welcher alle Anlagen enthält (Wenn nicht NULL, werden alle Inhalte des Ordners hochgeladen)
 #' @param files eines oder mehrere Files die als Anlage hochgeladen werden
-#' @param dataset_uid dataset_uid
+#' @template template_params
 #'
 #' @export
 #'

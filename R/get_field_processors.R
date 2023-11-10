@@ -2,7 +2,7 @@
 #'
 #' Funktion um alle processor Schritte (Umbenennungen, Veränderung Beschreinung, Veränderung Typ,etc.) eines Datensatzes anzuzeigen
 #'
-#' @param dataset_uid kann metadata_catalog entnommen werden
+#' @template template_params
 #' @param limit number of field processors (default is `NULL`)
 #'
 #' @return dataframe mit processor Schritten

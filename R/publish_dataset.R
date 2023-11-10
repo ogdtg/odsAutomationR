@@ -2,8 +2,7 @@
 #'
 #' Funktion published Datensatz, verändert aber NICHT die Sicherheitseinstellung (Datensatz nur für zugelassene Benutzer sichtbar)
 #'
-#' @param dataset_uid kann metadata_catalog entnommen werden
-#' @importFrom httr PUT
+#' @template template_params
 #'
 #' @export
 #'

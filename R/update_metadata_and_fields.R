@@ -1,11 +1,10 @@
 #' Bestehenden Datensatz bearbeiten (Metadaten und Feldkonfigs)
-#'
-#' @param dataset_uid dataset_uid
-#' @param filepath Pfad zum Excel Schema
+
+#' @template template_params
 #'
 #' @export
 #'
-update_metadata_and_fields <- function(dataset_uid,filepath){
+update_metadata_and_fields <- function(dataset_uid,schema){
 
 
   tryCatch({
@@ -25,7 +24,7 @@ update_metadata_and_fields <- function(dataset_uid,filepath){
   single_meta <- get_catalog(dataset_uid = dataset_uid)
 
 
-  metadata_test <- readxl::read_excel(filepath,sheet="Metadaten") #read schema
+  metadata_test <- readxl::read_excel(schema,sheet="Metadaten") #read schema
 
   ## METADATA
   # Retrieve themes
@@ -132,5 +131,5 @@ update_metadata_and_fields <- function(dataset_uid,filepath){
   }
 
   # Edit fields
-  edit_fields(dataset_uid = dataset_uid, schema = filepath)
+  edit_fields(dataset_uid = dataset_uid, schema = schema)
 }

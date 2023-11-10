@@ -2,8 +2,7 @@
 #'
 #' Historie wiederherstellen
 #'
-#' @param dataset_uid Datensatz ID
-#' @param change_uid Change ID
+#' @template template_params
 #'
 #' @export
 #'

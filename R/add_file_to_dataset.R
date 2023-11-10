@@ -2,8 +2,7 @@
 #'
 #' Adds a local CSV file to a dataset on ODS (only possible with automation API)
 #'
-#' @param filepath path to csv file
-#' @param dataset_uid dataset_uid
+#' @template template_params
 #' @param encoding encdoing of the csv file
 #'
 #' @return resource_uid

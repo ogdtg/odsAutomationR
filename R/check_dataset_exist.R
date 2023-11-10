@@ -2,7 +2,7 @@
 #'
 #' Überprüft ob ein Datensatz mit der gegebenen dataset_uid existiert
 #'
-#' @param dataset_uid kann metadata_catalog entnommen werden
+#' @template template_params
 #'
 #' @return boolean: wenn Datensatz existiert TRUE sonst FALSE
 #' @export

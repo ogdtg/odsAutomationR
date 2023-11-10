@@ -1,6 +1,6 @@
 #' Rename field
 #'
-#' @param dataset_uid dataset_uid
+#' @template template_params
 #' @param field field_id
 #' @param to_name new name
 #'
