@@ -12,6 +12,7 @@
 #'
 add_attachments <- function(directory=NULL, files=NULL, dataset_uid) {
 
+
   if (is.null(directory) && is.null(files)) {
     stop("Either files or directory must be provided")
   }
@@ -25,6 +26,22 @@ add_attachments <- function(directory=NULL, files=NULL, dataset_uid) {
     files <- list.files(directory)
     files <- paste0(normalizePath(directory),"/",files)
   }
+
+  files_final <- files
+
+  for (file in files){
+    if( file.exists(file)){
+      exists <- TRUE
+    } else {
+      files_final <- files_final[files_final!=file]
+      warning(paste0(file," does not exist. It will not be uploaded."))
+    }
+  }
+
+  if (length(files_final)==0){
+    stop("None of the files is existing. Please check the paths.")
+  }
+
   tryCatch({
     key = getKey()
     domain = getDomain()
@@ -35,7 +52,7 @@ add_attachments <- function(directory=NULL, files=NULL, dataset_uid) {
 
   })
 
-  filelist <- lapply(files, function(x){
+  filelist <- lapply(files_final, function(x){
     body = list(
       `file` = httr::upload_file(x)
     )

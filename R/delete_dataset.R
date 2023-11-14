@@ -18,10 +18,11 @@ delete_dataset <- function(dataset_uid, ask = TRUE) {
 
   })
 
-  metas <- get_metadata(dataset_uid)
 
 
   if (ask) {
+    metas <- get_metadata(dataset_uid)
+
     response <- readline(prompt=paste0("If you want to permanently delete the dataset ",metas$value$title,", type 'yes' and press enter. \n If not, leave the line empty and press enter."))
 
     response <- tolower(response)
