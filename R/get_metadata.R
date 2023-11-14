@@ -2,7 +2,7 @@
 #'
 #'Funktion um Metadaten eines bestimmten Datensatzes zu erhalten
 #'
-#' @template template_params
+#' @template dataset_uid
 #' @param as_list if `TRUE` the function will return the original JSON as list instead of as data.frame (default is `FALSE`)
 #'
 #' @return Datensatz mit Metadaten eines gewünschten Datensatzes

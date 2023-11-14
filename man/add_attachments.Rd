@@ -7,33 +7,11 @@
 add_attachments(directory = NULL, files = NULL, dataset_uid)
 }
 \arguments{
-\item{directory}{Pfad zu Ordner welcher alle Anlagen enthält (Wenn nicht NULL, werden alle Inhalte des Ordners hochgeladen)}
+\item{directory}{Pfad zu Ordner welcher alle Anlagen enthÃ¤lt (Wenn nicht NULL, werden alle Inhalte des Ordners hochgeladen)}
 
-\item{files}{eines oder mehrere Files die als Anlage hochgeladen werden
-
-Metadata}
+\item{files}{eines oder mehrere Files die als Anlage hochgeladen werden}
 
 \item{dataset_uid}{the internal uid of the dataset. The dataset_uid can be taken from the catalog}
-
-\item{schema}{path to the metadata xlsx schema}
-
-\item{filepath}{path to the csv file where the actual data is stored}
-
-\item{save_local}{if `TRUE`, the catalog will be saved locally}
-
-\item{resource_uid}{the internal uid of a specific resource (namely a csv file or an attachment)}
-
-\item{change_uid}{the internal uid of a change}
-
-\item{encoding}{File encoding (for example utf-8)
-
-Attachments}
-
-\item{template}{kann metadata_catalog entnommen werden}
-
-\item{meta_name}{kann metadata_catalog entnommen werden}
-
-\item{meta_value}{neuer Wert}
 }
 \description{
 Mit dieser Funktion können eines oder mehere Files bzw. der Inhalt ganzer Ordner als Anlage zu einem Datensatz zugeordnet werden

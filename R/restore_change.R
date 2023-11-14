@@ -2,7 +2,8 @@
 #'
 #' Historie wiederherstellen
 #'
-#' @template template_params
+#' @template change_uid
+#' @template dataset_uid
 #'
 #' @export
 #'

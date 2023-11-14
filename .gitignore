@@ -50,3 +50,6 @@ rsconnect/
 
 # Other stuff to ignore
 FILES/
+Rmod/
+preparing/
+Rbackup/

@@ -2,7 +2,7 @@
 #'
 #' Funktion um Datensatz zu löschen
 #'
-#' @template template_params
+#' @template dataset_uid
 #' @param ask wenn TRUE wird nach Bestätigung durch USer gefragt.
 #'
 #' @export
@@ -22,7 +22,7 @@ delete_dataset <- function(dataset_uid, ask = TRUE) {
 
 
   if (ask) {
-    response <- readline(prompt=paste0("If you want to permanently delete the dataset ",metas$value$title," (",id,"), type 'yes' and press enter. \n If not, leave the line empty and press enter."))
+    response <- readline(prompt=paste0("If you want to permanently delete the dataset ",metas$value$title,", type 'yes' and press enter. \n If not, leave the line empty and press enter."))
 
     response <- tolower(response)
   } else if (!ask) {

@@ -10,6 +10,7 @@ user <- new.env()
 #' @export
 #'
 setKey <- function(apikey) {
+  Sys.setenv(ODS_KEY=apikey)
   assign("apikey", apikey, env=user)
 }
 
@@ -38,6 +39,8 @@ setDomain <- function(domain) {
   domain <- gsub("https://","",domain)
   domain <- gsub("http://","",domain)
   domain <- gsub("http:/","",domain)
+
+  Sys.setenv(ODS_DOMAIN=domain)
   assign("domain", domain, env=user)
 }
 
@@ -61,6 +64,8 @@ getDomain<- function() {
 #' @export
 #'
 setPath <- function(path) {
+  Sys.setenv(ODS_PATH=path)
+
   assign("path", path, env=user)
 }
 
@@ -85,6 +90,8 @@ getPath<- function() {
 #' @export
 #'
 setApiType <- function(api_type) {
+  Sys.setenv(ODS_APITYPE=api_type)
+
   assign("ApiType", api_type, env=user)
 }
 

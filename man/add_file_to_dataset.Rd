@@ -12,26 +12,6 @@ add_file_to_dataset(filepath, dataset_uid, encoding)
 \item{dataset_uid}{the internal uid of the dataset. The dataset_uid can be taken from the catalog}
 
 \item{encoding}{encdoing of the csv file}
-
-\item{schema}{path to the metadata xlsx schema}
-
-\item{save_local}{if `TRUE`, the catalog will be saved locally}
-
-\item{resource_uid}{the internal uid of a specific resource (namely a csv file or an attachment)}
-
-\item{change_uid}{the internal uid of a change}
-
-\item{directory}{Pfad zu Ordner welcher alle Anlagen enthält (Wenn nicht NULL, werden alle Inhalte des Ordners hochgeladen)}
-
-\item{files}{eines oder mehrere Files die als Anlage hochgeladen werden
-
-Metadata}
-
-\item{template}{kann metadata_catalog entnommen werden}
-
-\item{meta_name}{kann metadata_catalog entnommen werden}
-
-\item{meta_value}{neuer Wert}
 }
 \value{
 resource_uid

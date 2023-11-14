@@ -1,6 +1,6 @@
 #' get_dataset_resource
 #'
-#' @template template_params
+#' @template dataset_uid
 #'
 #' @return Datensatz mit allen Datenquellen die dem entsprechenden ODS Datensatz zugeordnet sind
 #' @export

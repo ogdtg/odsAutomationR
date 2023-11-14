@@ -2,7 +2,10 @@
 #'
 #' Resource eines Datensatzes ersetzen mit bereits hochgeladenem File
 #'
-#' @template template_params
+#' @template dataset_uid
+#' @template encoding
+#' @template filepath
+#' @template resource_uid
 #'
 #' @export
 #'

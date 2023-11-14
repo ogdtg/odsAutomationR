@@ -4,7 +4,8 @@
 #' Funktion kann nur auf genau definiertes Schema angewendet werden.
 #' Alle Metadaten im Schema werden auf das Portal gesladen.
 #'
-#' @template template_params
+#' @template save_local
+#' @template schema
 #'
 #' @return dataset_uid
 #' @export
@@ -14,7 +15,7 @@ add_metadata_from_scheme <- function(schema,save_local = TRUE) {
 
 
 
-  metadata_test <- readxl::read_excel(schema,sheet="Metadaten") #read schema
+  metadata_test <-readxl::read_excel(schema,sheet="Metadaten") #read schema
   #names(metadata_test)[1]<-"Metadata"
   metadata_test["Beispiel"]<-NULL
 
@@ -28,13 +29,18 @@ add_metadata_from_scheme <- function(schema,save_local = TRUE) {
   #neue Kennung erzeugen
   dataset_id <- create_new_dataset_id(part_id,save_local = save_local, metadata_cat = metadata_cat)
 
-  api_type <- getApiType()
-
+  domain_type <- getDomain()
 
   # Retrieve themes
   theme_names <-metadata_test$Eintrag[grep("Thema \\d",metadata_test$Metadata)]
   theme_names <- theme_names[!is.na(theme_names)]
-  theme_ids <- themes$theme_id[which(themes$theme %in% theme_names)]
+
+  if (domain_type == "int-kantonthurgau.opendatasoft.com") {
+    theme_ids <- unique(themes$theme_id_int[which(themes$theme %in% theme_names)])
+  } else {
+    theme_ids <- themes$theme_id[which(themes$theme %in% theme_names)]
+
+  }
 
   # Retrieve Keywords
   keywords <-
@@ -53,7 +59,7 @@ add_metadata_from_scheme <- function(schema,save_local = TRUE) {
   template_json$metadata$default$title$value <-
     metadata_test$Eintrag[which(metadata_test$Metadata == "Titel")]
 
-  if (template_json$metadata$default$title$value %in% metadata_cat$fields.title) {
+  if (template_json$metadata$default$title$value %in% metadata_cat$title) {
     stop("Title already taken")
   }
 
@@ -129,6 +135,8 @@ add_metadata_from_scheme <- function(schema,save_local = TRUE) {
 
   metas <- res$content %>% rawToChar() %>% jsonlite::fromJSON()
   if (res$status_code == 201) {
+    publish_dataset(metas$uid)
+    message("Dataset published.")
     return(metas$uid)
   } else {
     warning(paste0(

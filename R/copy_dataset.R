@@ -2,7 +2,7 @@
 #'
 #' Copy all data and metadata from one dataset to another
 #'
-#' @template template_params
+#' @template dataset_uid
 #'
 #' @return metadata of the newly created dataset
 #' @export

@@ -2,7 +2,7 @@
 #'
 #' Funktion published Datensatz, verändert aber NICHT die Sicherheitseinstellung (Datensatz nur für zugelassene Benutzer sichtbar)
 #'
-#' @template template_params
+#' @template dataset_uid
 #'
 #' @export
 #'

@@ -2,7 +2,7 @@
 #'
 #' Überprüft ob ein Datensatz mit der gegebenen dataset_uid existiert
 #'
-#' @template template_params
+#' @template dataset_uid
 #'
 #' @return boolean: wenn Datensatz existiert TRUE sonst FALSE
 #' @export

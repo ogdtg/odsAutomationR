@@ -1,6 +1,7 @@
 #' Uploads a file to ODS
 #'
-#' @template template_params
+#' @template dataset_uid
+#' @template filepath
 #'
 #' @return results list
 #' @export

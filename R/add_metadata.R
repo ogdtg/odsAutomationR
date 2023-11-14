@@ -4,7 +4,10 @@
 #' Adds a metadata field (might be deprecated in the future)
 #'
 #'
-#' @template template_params
+#' @template dataset_uid
+#' @template meta_name
+#' @template meta_value
+#' @template template
 #' @param meta_df 4
 #'
 #' @return TRUE or NULL

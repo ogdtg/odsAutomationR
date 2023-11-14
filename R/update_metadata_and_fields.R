@@ -1,6 +1,7 @@
 #' Bestehenden Datensatz bearbeiten (Metadaten und Feldkonfigs)
 
-#' @template template_params
+#' @template dataset_uid
+#' @template schema
 #'
 #' @export
 #'

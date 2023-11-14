@@ -2,7 +2,7 @@
 #'
 #' Neueste change_uid
 #'
-#' @template template_params
+#' @template dataset_uid
 #'
 #' @return change_uid
 #' @export

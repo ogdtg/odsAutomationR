@@ -2,7 +2,7 @@
 #'
 #' @description With this function you can easily update metadata of an existing dataset. You can call the get_metadata() function, edit the value you want and set the new metadata directly from the metadata_df.
 #'
-#' @template template_params
+#' @template dataset_uid
 #' @param metadata_df a data.frame as received from get_metadata()
 #' @param id_part the dataset id without the number (for example "sk-stat")
 #' @param dataset_id full dataset_id (e.g. sk-stat-100). It is recommendend to just provide the id_part

@@ -22,32 +22,6 @@ update_dataset_from_df(
 \item{dataset_id}{full dataset_id (e.g. sk-stat-100). It is recommendend to just provide the id_part}
 
 \item{is_restricted}{whether the data.frame should be restricted and only be visible for backend user for (default is TRUE)}
-
-\item{schema}{path to the metadata xlsx schema}
-
-\item{filepath}{path to the csv file where the actual data is stored}
-
-\item{save_local}{if `TRUE`, the catalog will be saved locally}
-
-\item{resource_uid}{the internal uid of a specific resource (namely a csv file or an attachment)}
-
-\item{change_uid}{the internal uid of a change}
-
-\item{encoding}{File encoding (for example utf-8)
-
-Attachments}
-
-\item{directory}{Pfad zu Ordner welcher alle Anlagen enthält (Wenn nicht NULL, werden alle Inhalte des Ordners hochgeladen)}
-
-\item{files}{eines oder mehrere Files die als Anlage hochgeladen werden
-
-Metadata}
-
-\item{template}{kann metadata_catalog entnommen werden}
-
-\item{meta_name}{kann metadata_catalog entnommen werden}
-
-\item{meta_value}{neuer Wert}
 }
 \value{
 dataset_uid from the created dataset

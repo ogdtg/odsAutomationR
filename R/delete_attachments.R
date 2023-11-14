@@ -2,7 +2,7 @@
 #'
 #' Funktion um Datensatz Anhänge zu löschen
 #'
-#' @template template_params
+#' @template dataset_uid
 #'
 #' @export
 #'

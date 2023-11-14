@@ -2,7 +2,8 @@
 #'
 #' Resource eines Datensatzes löschen
 #'
-#' @template template_params
+#' @template dataset_uid
+#' @template resource_uid
 #'
 #'
 #' @export

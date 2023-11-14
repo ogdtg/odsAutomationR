@@ -1,6 +1,7 @@
 #' Feldkonfigurationen hinzufügen
 #'
-#' @template template_params
+#' @template dataset_uid
+#' @template schema
 #' @param original_names Namen aus dem `data_info.rds`. default ist `NULL`
 #'
 #' @export

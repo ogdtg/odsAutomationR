@@ -2,7 +2,10 @@
 #'
 #' Funktion um einen Eintrag in den Metadaten zu ändern
 #'
-#' @template template_params
+#' @template dataset_uid
+#' @template meta_name
+#' @template meta_value
+#' @template template
 #'
 #' @export
 #'
