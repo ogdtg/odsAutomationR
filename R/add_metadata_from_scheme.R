@@ -119,7 +119,7 @@ add_metadata_from_scheme <- function(schema,save_local = TRUE) {
 
   # Attributions
   template_json$metadata$default$attributions$value <-
-    attributions
+    unlist(attributions)
 
 
   # Perform API reguest
