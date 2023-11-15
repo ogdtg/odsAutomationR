@@ -15,6 +15,9 @@ create_ogd(data, schema, filepath, attachments = NULL)
 
 \item{attachments}{one or several files or a directory (see `add_attachments`)}
 }
+\value{
+dataset_uid
+}
 \description{
 Takes a data.frame and a metadata schema and creates a complete dataset on ODS
 }
