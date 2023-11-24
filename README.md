@@ -270,15 +270,22 @@ update_resource(dataset_uid = "da_xxxxx",
 
 ```
 
+[Mehr Informationen](https://help.opendatasoft.com/apis/ods-automation-v1/#tag/Dataset-resources/operation/create-dataset-resource)
+
+
 ### Daten löschen
 
 Zum Löschen von Resourcen kann die `delete_resource()` Funktion verwendet werden. Wenn keine `resource_uid` als Parameter mitgegeben wird, checkt die Funktion, ob eine Resource für den Datensatz vorhanden ist. Wenn ja, wird diese gelöscht. Sollten mehrere CSV Ressourcen zu einem Datensatz gehören, dann wird die aktuellste gelöscht (Fall sollte i.d.R. nicht auftreten).
+
 
 
 ```r
 delete_resource(dataset_uid = "da_xxxxx")
 
 ```
+
+[Mehr Informationen](https://help.opendatasoft.com/apis/ods-automation-v1/#tag/Dataset-resources/operation/delete-dataset-resource)
+
 ### Daten herunterladen
 
 Zum Herunterladen von Resourcen kann die `download_resource()` Funktion verwendet werden. Wenn keine `resource_uid` als Parameter mitgegeben wird, checkt die Funktion, ob eine Resource für den Datensatz vorhanden ist. Wenn ja, wird diese heruntergeladen. Sollten mehrere CSV Ressourcen zu einem Datensatz gehören, dann wird die aktuellste heruntergeladen (Fall sollte i.d.R. nicht auftreten).
@@ -288,12 +295,14 @@ Zum Herunterladen von Resourcen kann die `download_resource()` Funktion verwende
 download_resource(dataset_uid = "da_xxxxx")
 
 ```
-
+[Mehr Informationen](https://help.opendatasoft.com/apis/ods-automation-v1/#tag/Dataset-resources/operation/download-dataset-resource-file)
 
 
 ## Felder (Variablen)
 
 Die Variablen selbst heissen auf ODS Felder (fields). Ihnen kann eine Beschreibung, ein Datentyp eine EInehit usw. zugeordnet werden.
+
+[Mehr Informationen](https://help.opendatasoft.com/apis/ods-automation-v1/#tag/Dataset-fields)
 
 ### Datensatz aus Excel-Schema erstellen (TG spezifisch)
 
@@ -359,12 +368,15 @@ make_field_sortable(dataset_uid = "da_xxxxx", field = "field_name")
 ```r
 publish_dataset("da_xxxxx")
 ```
+[Mehr Informationen](https://help.opendatasoft.com/apis/ods-automation-v1/#tag/Datasets/operation/publish-dataset)
 
 ### Veröffentlichung von Datensatz zurückziehen
 
 ```r
 unpublish_dataset("da_xxxxx")
 ```
+
+[Mehr Informationen](https://help.opendatasoft.com/apis/ods-automation-v1/#tag/Datasets/operation/unpublish-dataset)
 
 ### Datensatz löschen
 
@@ -374,6 +386,9 @@ Wenn der Parameter `ask` nicht explizit gleich `FALSE` gesetzt wird, fordert die
 ```r
 delete_dataset("da_xxxxx", ask = FALSE)
 ```
+
+[Mehr Informationen](https://help.opendatasoft.com/apis/ods-automation-v1/#tag/Datasets/operation/delete-dataset)
+
 
 ### Datensatzsichtbarkeit ändern
 
@@ -403,9 +418,14 @@ Datensatz wird kopiert und ein neuer Datensatz wird erstellt
 copy_dataset("da_xxxxx")
 ```
 
+[Mehr Informationen](https://help.opendatasoft.com/apis/ods-automation-v1/#tag/Datasets/operation/copy-dataset)
+
 
 ## Anhänge
 
+Als Anhang kann jede Art von File, unabhängig vom Filetyp verwendet werden.
+
+[Mehr Informationen](https://help.opendatasoft.com/apis/ods-automation-v1/#tag/Dataset-attachments)
 
 ### Anhänge einsehen
 
@@ -451,30 +471,6 @@ dataset_id <- create_new_dataset_id(part_id = "sk-stat")
 
 
 
-
-
-## Datensatz veröffentlichen
-
-Datensätze können mithilfe der `publish_dataset` veröffentlicht werden. Dazu muss lediglich die `dataset_uid` Datensatzes angegeben werden. Es ist zu beachten, dass die Sicherheitseinstellungen (wer kann den Datensatz sehen) mit dieser Funktion NICHT verändert werden. 
-
-```r
-
-publish_dataset("da-xxxxxx")
-
-```
-
-
-## Datensatz löschen
-
-Datensätze können mithilfe der `delete_dataset` gelöscht werden. Dazu muss lediglich die `dataset_uid`, die `dataset_id` oder der Titel des Datensatzes angegeben werden. Vor der Löschung wird ausserdem noch einmal nach einer Bestätigung gefragt, um versehentliche Löschungen zu vermeiden. Um dies zu deaktivierne kann `ask=FALSE` gesetzt werden.
-
-```r
-
-delete_dataset("da-xxxxxx", ask = FALSE)
-
-
-```
-
 ## Datensatzhistorie einsehen
 
 Wenn Datensätze zu einem früheren Zeitpunkt zurückgesetzt werden sollen, kann dies über die Datensatz Historie ermöglicht werden.
@@ -487,6 +483,8 @@ get_dataset_changes(dataset_uid = "da_xxxxx")
 get_latest_changes(dataset_uid = "da_xxxxx")
 ```
 
+[Mehr Informationen](https://help.opendatasoft.com/apis/ods-automation-v1/#tag/Dataset-versions/operation/list-dataset-versions)
+
 
 ## Datensatz zurücksetzen
 
@@ -496,4 +494,4 @@ Um die `change_uid` zu erhalten, können die im vorhergegangenen Funktionen verw
 restore_change(dataset_uid = "da_xxxxx", change_uid = "ch_xxxxx")
 ```
 
-
+[Mehr Informationen](https://help.opendatasoft.com/apis/ods-automation-v1/#tag/Dataset-versions/operation/restore-version)
