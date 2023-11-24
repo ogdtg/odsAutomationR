@@ -118,7 +118,7 @@ Die (Metadaten-) Struktur eines Datensatzes auf ODS folgt immer dem gleichen JSO
 
 Im `metadata` Teil entspricht jedes untergeordnete Element einem Metadaten Template. Das Template `default` enthält zum Beispiel folgende Metadaten:
 
-````json
+```json
 
 
 "default": {
@@ -180,7 +180,7 @@ Der Parameter `metadata_df` entspricht von der Struktur dem Ergebnis von `get_me
 [Mehr Informationen](https://help.opendatasoft.com/apis/ods-automation-v1/#tag/Datasets/operation/create-dataset)
 
 
-````r
+```r
 
 # Metadaten herunterladen
 metadata_df <- get_metadata("da_xxxxx",as_list = FALSE)
