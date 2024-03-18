@@ -7,7 +7,7 @@
 add_attachments(directory = NULL, files = NULL, dataset_uid)
 }
 \arguments{
-\item{directory}{Pfad zu Ordner welcher alle Anlagen enthÃ¤lt (Wenn nicht NULL, werden alle Inhalte des Ordners hochgeladen)}
+\item{directory}{Pfad zu Ordner welcher alle Anlagen enthält (Wenn nicht NULL, werden alle Inhalte des Ordners hochgeladen)}
 
 \item{files}{eines oder mehrere Files die als Anlage hochgeladen werden}
 
