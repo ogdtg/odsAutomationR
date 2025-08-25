@@ -67,6 +67,8 @@ add_metadata_from_scheme <- function(schema,save_local = TRUE) {
   template_json$metadata$dcat$created$value <- Sys.time()
   template_json$metadata$default$modified$value <- Sys.time()
 
+  # License
+  template_json$metadata$dcat_ap_ch$license$value <- "terms_open"
 
   # Theme
   if (length(theme_ids)==1){
