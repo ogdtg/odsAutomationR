@@ -6,6 +6,7 @@
 #' @template encoding
 #' @template filepath
 #' @template resource_uid
+#' @param separator
 #'
 #' @export
 #'
@@ -19,7 +20,7 @@ update_resource <-  function(dataset_uid, resource_uid = NULL,filepath, encoding
     if (length(resource_info$results)==0) {
       message("There is no resource to update. Will add new resource")
 
-      resource_uid <- add_file_to_dataset(filepath = filepath, dataset_uid = dataset_uid, encoding = encoding)
+      resource_uid <- add_file_to_dataset(filepath = filepath, dataset_uid = dataset_uid, encoding = encoding,separator = separator)
       return(resource_uid)
     }
 

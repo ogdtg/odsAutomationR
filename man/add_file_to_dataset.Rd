@@ -4,7 +4,7 @@
 \alias{add_file_to_dataset}
 \title{Add CSV File to dataset}
 \usage{
-add_file_to_dataset(filepath, dataset_uid, encoding)
+add_file_to_dataset(filepath, dataset_uid, encoding, separator = NULL)
 }
 \arguments{
 \item{filepath}{path to the csv file where the actual data is stored}
@@ -12,6 +12,8 @@ add_file_to_dataset(filepath, dataset_uid, encoding)
 \item{dataset_uid}{the internal uid of the dataset. The dataset_uid can be taken from the catalog}
 
 \item{encoding}{encdoing of the csv file}
+
+\item{separator}{}
 }
 \value{
 resource_uid

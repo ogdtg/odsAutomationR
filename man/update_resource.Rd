@@ -4,7 +4,13 @@
 \alias{update_resource}
 \title{update_resource}
 \usage{
-update_resource(dataset_uid, resource_uid = NULL, filepath, encoding)
+update_resource(
+  dataset_uid,
+  resource_uid = NULL,
+  filepath,
+  encoding,
+  separator = NULL
+)
 }
 \arguments{
 \item{dataset_uid}{the internal uid of the dataset. The dataset_uid can be taken from the catalog}
@@ -14,6 +20,8 @@ update_resource(dataset_uid, resource_uid = NULL, filepath, encoding)
 \item{filepath}{path to the csv file where the actual data is stored}
 
 \item{encoding}{File encoding (for example utf-8)}
+
+\item{separator}{}
 }
 \description{
 Resource eines Datensatzes ersetzen mit bereits hochgeladenem File

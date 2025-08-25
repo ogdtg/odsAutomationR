@@ -6,6 +6,8 @@
 #' @template encoding
 #' @template filepath
 #' @param encoding encdoing of the csv file
+#' @param separator
+
 #'
 #' @return resource_uid
 #' @export
